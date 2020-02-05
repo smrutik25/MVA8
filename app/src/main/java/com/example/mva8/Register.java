@@ -43,7 +43,7 @@ public class Register extends AppCompatActivity {
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phno);
-        password = findViewById(R.id.password);
+        password = findViewById(R.id.phone);
         register = (Button) findViewById(R.id.register);
 
         fAuth = FirebaseAuth.getInstance();
@@ -81,11 +81,10 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                            DocumentReference documentReference = fStore.collection("Users").document(userID);
                             Map<String, Object> user = new HashMap<>();
-                            user.put("fName", fullName);
+                            user.put("name", fullName);
                             user.put("email", eid);
                             user.put("phone", phno);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
